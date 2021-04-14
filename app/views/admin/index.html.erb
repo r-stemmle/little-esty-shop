@@ -1,10 +1,10 @@
 <%= render partial: 'admin/header'%>
 
-<div class='dashboard_body'>
+<div class='admin_dashboard_body'>
   <div>
     <h3 class="center">Incomplete Invoices</h3>
-    <% Invoice.joins(:invoice_items).where.not("invoice_items.status=2").order(:created_at).distinct.each do |invoice| %>
-      <p>Invoice #<%= invoice.id %> - <%= invoice.created_at %></p>
+    <% @invoices.where_not_successful.each do |invoice| %>
+      <p>Invoice #<%= link_to "#{invoice.id}", admin_invoice_path(invoice) %> - <%= invoice.created_at.strftime("%m/%d/%Y %H:%M") %></p>
     <% end %>
   </div>
 
