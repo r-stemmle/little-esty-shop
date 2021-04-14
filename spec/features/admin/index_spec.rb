@@ -5,17 +5,15 @@ describe 'admin index page' do
     it 'shows a header that you are on the admin dashboard' do
       visit "/admin"
 
-      expect(page).to have_content("This is the Admin Dashboard")
+      expect(page).to have_content("Admin Dashboard")
     end
-    it 'shows links to admin merchants index' do
+
+    it 'shows links to dashboard, merchants, and invoices' do
       visit "/admin"
 
-      expect(page).to have_link("Merchant Index")
-    end
-    it 'shows link to admin invoices index' do
-      visit "/admin"
-
-      expect(page).to have_link("Invoice Index")
+      expect(page).to have_link("Dashboard")
+      expect(page).to have_link("Merchants")
+      expect(page).to have_link("Invoices")
     end
   end
 end

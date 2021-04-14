@@ -85,11 +85,21 @@ label {
 
 .main_header {
   color: #000;
-  border: 5px solid;
-  border-color: grey;
-  background-color: grey;
+  border: 25px solid;
+  border-color: #DEDEDE;
+  background-color: #DEDEDE;
 }
 
 .center {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.sub_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sub_header_item {
 }
