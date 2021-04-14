@@ -25,7 +25,7 @@ namespace :csv_load do
    task :invoices => :environment do
     Invoice.destroy_all
     CSV.foreach("db/data/invoices.csv", { encoding: "UTF-8", headers: true, header_converters: :symbol, converters: :all}) do |row|
-      Invoice.parse_csv(row.to_hash)
+      Invoice.create!(row.to_hash)
     end
   end
 
