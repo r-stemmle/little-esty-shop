@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'application#welcome'
 
+  get '/merchant/:merchant_id/dashboard', to: 'merchants#dashboard', as: 'merchant_dashboard'
+
   resources :merchants, only: [:show, :create] do
      resources :invoices, only: [:index, :show]
      resources :items
