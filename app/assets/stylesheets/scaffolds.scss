@@ -82,3 +82,24 @@ div {
 label {
   display: block;
 }
+
+.main_header {
+  color: #000;
+  border: 25px solid;
+  border-color: #DEDEDE;
+  background-color: #DEDEDE;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.sub_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sub_header_item {
+}
