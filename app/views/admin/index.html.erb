@@ -1,2 +1,15 @@
 <%= render partial: 'admin/header'%>
 
+<div class='dashboard_body'>
+  <div>
+    <h3 class="center">Incomplete Invoices</h3>
+    <% Invoice.joins(:invoice_items).where.not("invoice_items.status=2").order(:created_at).distinct.each do |invoice| %>
+      <p>Invoice #<%= invoice.id %> - <%= invoice.created_at %></p>
+    <% end %>
+  </div>
+
+  <div>
+    <h3>Top Customers</h3>
+
+  </div>
+</div>
