@@ -46,7 +46,10 @@ RSpec.describe "As a Merchant" do
         expect(page).to_not have_content(item_6.id)
         expect(page).to_not have_content(item_7.id)
         save_and_open_page
-        # expect(page).to have_link()
+        expect(page).to have_link(
+          invoice_item_1.invoice_id,
+          href: "merchants/#{@merchant.id}/invoices/#{invoice_item_1.invoice_id}"
+        )
       end
 
     end

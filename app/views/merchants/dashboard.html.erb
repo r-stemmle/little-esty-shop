@@ -7,8 +7,12 @@
 <div class="merchant-items">
   <h2>Items Ready to Ship</h2>
     <ul>
-      <% @merchant.ready_to_ship.each do |shippable_item| %>
-      <li><%= shippable_item.name %> <%= shippable_item.invoice_id %></li>
-      <% end %>
+        <% @merchant.ready_to_ship.each do |shippable_item| %>
+      <li>
+          <%= shippable_item.name %>
+          <%= link_to shippable_item.invoice_id,
+            "merchants/#{@merchant.id}/invoices/#{shippable_item.invoice_id}" %>
+      </li>
+        <% end %>
     </ul>
 </div>
