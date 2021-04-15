@@ -26,10 +26,15 @@ RSpec.describe "As a Merchant" do
       item_4 = create(:random_item, merchant_id: @merchant.id)
       item_5 = create(:random_item, merchant_id: @merchant.id)
       item_6 = create(:random_item, merchant_id: @merchant.id)
+      invoice_item_1 = create(:random_invoice_item, item: item_1, status: 0)
+      invoice_item_2 = create(:random_invoice_item, item: item_2, status: 1)
+      invoice_item_3 = create(:random_invoice_item, item: item_3, status: 0)
+      invoice_item_4 = create(:random_invoice_item, item: item_4, status: 1)
+      invoice_item_5 = create(:random_invoice_item, item: item_5, status: 0)
+      invoice_item_6 = create(:random_invoice_item, item: item_6, status: 2)
       item_7 = create(:random_item)
-
       visit merchant_dashboard_path(@merchant)
-
+      save_and_open_page
       within ".merchant-items" do
         expect(page).to have_content(item_1.name)
         expect(page).to have_content(item_2.name)

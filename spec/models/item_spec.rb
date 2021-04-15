@@ -25,7 +25,6 @@ RSpec.describe Item, type: :model do
         invoice_item_3 = create(:random_invoice_item, item: item_3, status: 2)
 
         expect(Item.not_shipped).to eq([item_1, item_2])
-
       end
     end
   end

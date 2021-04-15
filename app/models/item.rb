@@ -8,7 +8,7 @@ class Item < ApplicationRecord
   validates :unit_price, presence: true, numericality: true
 
   def self.not_shipped
-    a = where('status != ?', 2)
-    binding.pry
+      self.joins(:invoice_items)
+          .where('status != ?', 2)
   end
 end
