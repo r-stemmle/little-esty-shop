@@ -6,4 +6,9 @@ class Item < ApplicationRecord
 
   validates_presence_of :name, :description
   validates :unit_price, presence: true, numericality: true
+
+  def self.not_shipped
+    a = where('status != ?', 2)
+    binding.pry
+  end
 end

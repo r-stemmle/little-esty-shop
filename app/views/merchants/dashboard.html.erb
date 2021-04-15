@@ -3,3 +3,9 @@
 <header id="merchant-title">
   <h1><%= @merchant.name %></h1>
 </header>
+
+<div class="merchant-items">
+  <h2> Items Ready to Ship</h2>
+  <%= render partial: "items", collection: @merchant.ready_to_ship %>
+
+</div>
