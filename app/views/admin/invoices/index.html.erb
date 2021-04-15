@@ -1,0 +1,15 @@
+<%= render partial: 'admin/header'%>
+
+<div id='admin_invoice_container'>
+  <div id='admin_invoice_container_header'>
+    <h2>Invoices</h2>
+  </div>
+
+  <div class="break"></div>
+
+  <div id='admin_invoice_container_body '>
+    <% @invoices.each do |invoice| %>
+      <p>Invoice #<%= link_to invoice.id, admin_invoice_path(invoice) %></p>
+    <% end %>
+  </div>
+</div>
