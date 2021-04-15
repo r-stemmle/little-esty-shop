@@ -19,7 +19,7 @@ RSpec.describe "As a Merchant" do
       expect(page).to have_link('My Invoices')
     end
 
-    it "I see a list of names of all my items ready to ship" do
+    it "I see a list of items ordered but not shipped yet with invoice id link" do
       item_1 = create(:random_item, merchant_id: @merchant.id)
       item_2 = create(:random_item, merchant_id: @merchant.id)
       item_3 = create(:random_item, merchant_id: @merchant.id)
@@ -33,16 +33,20 @@ RSpec.describe "As a Merchant" do
       invoice_item_5 = create(:random_invoice_item, item: item_5, status: 0)
       invoice_item_6 = create(:random_invoice_item, item: item_6, status: 2)
       item_7 = create(:random_item)
+
+
       visit merchant_dashboard_path(@merchant)
-      save_and_open_page
+
       within ".merchant-items" do
-        expect(page).to have_content(item_1.name)
-        expect(page).to have_content(item_2.name)
-        expect(page).to have_content(item_3.name)
-        expect(page).to have_content(item_4.name)
-        expect(page).to have_content(item_5.name)
-        expect(page).to_not have_content(item_6.name)
-        expect(page).to_not have_content(item_7.name)
+        expect(page).to have_content(item_1.id)
+        expect(page).to have_content(item_2.id)
+        expect(page).to have_content(item_3.id)
+        expect(page).to have_content(item_4.id)
+        expect(page).to have_content(item_5.id)
+        expect(page).to_not have_content(item_6.id)
+        expect(page).to_not have_content(item_7.id)
+        save_and_open_page
+        # expect(page).to have_link()
       end
 
     end

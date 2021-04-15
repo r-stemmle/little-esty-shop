@@ -6,5 +6,9 @@
 
 <div class="merchant-items">
   <h2>Items Ready to Ship</h2>
-  <%= render partial: "items", collection: @merchant.ready_to_ship %>
+    <ul>
+      <% @merchant.ready_to_ship.each do |shippable_item| %>
+      <li><%= shippable_item.name %> <%= shippable_item.invoice_id %></li>
+      <% end %>
+    </ul>
 </div>

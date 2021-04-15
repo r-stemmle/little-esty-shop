@@ -20,6 +20,7 @@ RSpec.describe Merchant, type: :model do
         invoice_item_2 = create(:random_invoice_item, item: item_2, status: 1)
         invoice_item_3 = create(:random_invoice_item, item: item_3, status: 2)
         expect(merchant.ready_to_ship).to eq([item_1, item_2])
+        
       end
     end
   end
