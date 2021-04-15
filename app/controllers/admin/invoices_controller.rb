@@ -10,12 +10,9 @@ class Admin::InvoicesController < ApplicationController
   def update
     invoice = Invoice.find(params[:id])
 
-    if invoice.update(invoice_params)
-      redirect_to admin_invoice_path(invoice)
-    elsif
-      redirect_to admin_invoice_path(invoice)
-      flash[:error_explanation] = "Error: #{error_message(invoice.errors)}"
-    end
+    invoice.update(invoice_params)
+
+    redirect_to admin_invoice_path(invoice)
   end
 
   private
