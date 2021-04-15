@@ -1,0 +1,50 @@
+<%= render partial: 'admin/header' %>
+
+<div id='admin_invoice_container'>
+  <div id='admin_invoice_container_header'>
+    <h2>Invoice # <%= @invoice.id %></h1>
+  </div>
+
+  <div class="break"></div>
+
+  <div id='admin_invoice_container_body'>
+    <div id='admin_invoice_status'>
+      <%= form_with model: @invoice, url: admin_invoice_path(@invoice) do |f|%>
+        <%= f.label :status, "Status: " %>
+        <%= f.select(:status, ["in progress", "cancelled", "completed"]) %>
+        <%= f.submit %>
+      <% end %>
+    </div>
+
+    <div class="break"></div>
+
+    <p>Created on: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></p>
+
+    <p>Total Revenue: this will hold revenue </p>
+
+    <h2>Customer:</h2>
+    <div id='admin_invoice_customer'>
+      <%= @invoice.customer.first_name + ' ' + @invoice.customer.last_name %>
+    </div>
+
+    <div class="break"></div>
+
+    <h2>Items on this Invoice:</h2>
+    <div id='admin_invoice_items'>
+      <table>
+        <tr>
+          <th>Item Name</th>
+          <th>Quantity</th>
+          <th>Unit Price</th>
+          <th>Status</th>
+        </tr>
+        <tr>
+          <td>Alfreds Futterkiste</td>
+          <td>Maria Anders</td>
+          <td>Germany</td>
+          <td>Germany</td>
+        </tr>
+      </table
+    </div>
+  </div>
+</div>
