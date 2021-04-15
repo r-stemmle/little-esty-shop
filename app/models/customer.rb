@@ -12,4 +12,10 @@ class Customer < ApplicationRecord
         .order(transactions_count: :desc)
         .limit(5)
   end
+
+  def total_purchases
+    invoices.joins(:transactions)
+            .where(transactions: {result: 1})
+            .count
+  end
 end

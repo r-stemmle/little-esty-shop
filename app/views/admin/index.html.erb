@@ -10,6 +10,10 @@
 
   <div>
     <h3>Top Customers</h3>
-
+    <ol>
+      <% @customer.top_customers.each do |customer| %>
+        <li><%= "#{customer.first_name} #{customer.last_name}" %> - <%= customer.total_purchases %> purchases</li>
+      <% end %>
+    </ol>
   </div>
 </div>

@@ -41,4 +41,17 @@ RSpec.describe Customer, type: :model do
       end
     end
   end
+
+  describe 'instance methods' do
+    context '#total_purchases' do
+      it 'returns total number of successful transactions' do
+        customer = create(:random_customer)
+        invoice = create(:random_invoice, customer: customer)
+        create(:random_transaction, invoice: invoice)
+        create(:random_transaction, invoice: invoice)
+
+        expect(customer.total_purchases).to eq(2)
+      end
+    end
+  end
 end
