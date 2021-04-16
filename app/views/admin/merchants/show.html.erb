@@ -1,0 +1,4 @@
+<%= render partial: 'admin/header' %>
+
+<h1><%= @merchant.name %></h1>
+<%= link_to 'Update Merchant', admin_merchant_path(@merchant), method: :patch %>
