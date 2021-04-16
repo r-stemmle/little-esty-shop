@@ -6,7 +6,12 @@
       <h2>Enabled Merchants</h2>
       <ul>
       <% @merchants.all_enabled.each do |merchant| %>
-        <li><%= link_to merchant.name, admin_merchant_path(merchant) %></li>
+        <div class='admin_merchant'>
+          <li>
+            <%= link_to merchant.name, admin_merchant_path(merchant) %> 
+            <%= button_to 'Disable', toggle_enabled_admin_merchant_path(merchant), params: {enabled: false}, method: :patch %>
+          </li>
+        </div>
       <% end %>
       </ul>
     </div>
@@ -15,7 +20,12 @@
       <h2>Disabled Merchants</h2>
       <ul>
         <% @merchants.all_disabled.each do |merchant| %>
-          <li><%= link_to merchant.name, admin_merchant_path(merchant) %></li>
+          <div class='admin_merchant'>
+            <li>
+              <%= link_to merchant.name, admin_merchant_path(merchant) %> 
+              <%= button_to 'Enable', toggle_enabled_admin_merchant_path(merchant), method: :patch %>
+            </li>
+          </div>
         <% end %>
       </ul>
     </div>
