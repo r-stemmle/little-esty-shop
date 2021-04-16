@@ -6,3 +6,11 @@
 .admin_merchant_body #top_merchants {
   flex-wrap: wrap;
 }
+
+// .admin_merchant {
+//   flex-flow: row nowrap;
+// }
+
+form, div .admin_merchant{
+  display: inline;
+}
