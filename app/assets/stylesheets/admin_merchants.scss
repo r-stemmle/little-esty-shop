@@ -1,0 +1,8 @@
+.admin_merchant_body {
+  display: flex;
+  justify-content: space-around;
+}
+
+.admin_merchant_body #top_merchants {
+  flex-wrap: wrap;
+}
