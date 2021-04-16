@@ -1,4 +1,6 @@
 class Merchant < ApplicationRecord
+  default_scope {order(:name)}
+
   has_many :items, dependent: :destroy
 
   validates_presence_of :name
