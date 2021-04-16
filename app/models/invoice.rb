@@ -14,11 +14,8 @@ class Invoice < ApplicationRecord
         .order(:created_at)
         .distinct
   end
-end
 
-# As an admin,
-# When I visit the admin dashboard
-# Then I see a section for "Incomplete Invoices"
-# In that section I see a list of the ids of all invoices
-# That have items that have not yet been shipped
-# And each invoice id links to that invoice's admin show page
+  def total_revenue
+    invoice_items.sum("invoice_items.unit_price * invoice_items.quantity")
+  end
+end
