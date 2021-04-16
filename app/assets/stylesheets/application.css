@@ -16,3 +16,7 @@
 #error {
   color: red;
 }
+
+#success {
+  color: rgb(62, 197, 62);
+}
