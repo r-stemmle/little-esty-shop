@@ -1,0 +1,7 @@
+<%= render partial: '/admin/header' %>
+
+<%= form_with model: @merchant, url: admin_merchants_path, method: :post do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.submit 'Create Merchant' %>
+<% end %>
