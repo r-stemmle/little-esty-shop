@@ -23,9 +23,16 @@ RSpec.describe Merchant, type: :model do
       end
     end
 
-    describe "#favorite_customers" do
+    describe "#top_five_customers" do
       it "returns a the first five customers with most successful transactions" do
         merchant = create(:random_merchant, id: 22)
+        item_1 = create(:random_item, id: 1, merchant_id: 22)
+        item_2 = create(:random_item, id: 2, merchant_id: 22)
+        item_3 = create(:random_item, id: 3, merchant_id: 22)
+        item_4 = create(:random_item, id: 4, merchant_id: 22)
+        item_5 = create(:random_item, id: 5, merchant_id: 22)
+        item_6 = create(:random_item, id: 6, merchant_id: 22)
+
         customer_1 = create(:random_customer)
         customer_2 = create(:random_customer)
         customer_3 = create(:random_customer)
@@ -40,13 +47,12 @@ RSpec.describe Merchant, type: :model do
         invoice_5 = create(:random_invoice, customer: customer_5)
         invoice_6 = create(:random_invoice, customer: customer_6)
 
-        item_1 = create(:random_item, id: 1, merchant_id: 22)
-        item_2 = create(:random_item, id: 2, merchant_id: 22)
-        item_3 = create(:random_item, id: 3, merchant_id: 22)
-
         invoice_item_1 = create(:random_invoice_item, invoice: invoice_1, item: item_1, status: 0)
         invoice_item_2 = create(:random_invoice_item, invoice: invoice_2, item: item_2, status: 1)
-        invoice_item_3 = create(:random_invoice_item, invoice: invoice_1, item: item_3, status: 2)
+        invoice_item_3 = create(:random_invoice_item, invoice: invoice_3, item: item_3, status: 2)
+        invoice_item_4 = create(:random_invoice_item, invoice: invoice_4, item: item_4, status: 2)
+        invoice_item_5 = create(:random_invoice_item, invoice: invoice_5, item: item_5, status: 2)
+        invoice_item_6 = create(:random_invoice_item, invoice: invoice_6, item: item_6, status: 2)
 
         transaction_1 = create(:random_transaction, result: 1, invoice: invoice_1)
         transaction_2 = create(:random_transaction, result: 1, invoice: invoice_2)
@@ -55,7 +61,7 @@ RSpec.describe Merchant, type: :model do
         transaction_5 = create(:random_transaction, result: 1, invoice: invoice_5)
         transaction_6 = create(:random_transaction, result: 0, invoice: invoice_6)
 
-        expect(merchant.favorite_customers).to eq([
+        expect(merchant.top_five_customers).to eq([
           customer_1, customer_2, customer_3, customer_4, customer_5
           ])
       end

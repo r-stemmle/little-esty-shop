@@ -20,7 +20,7 @@
 
 <div class="favorite-customers">
   <h2>Favorite Customers</h2>
-      <% @merchant.favorite_customers.each do |customer| %>
+      <% @merchant.top_five_customers.each do |customer| %>
     <ol>
       <%= customer.name %>
     </ol>
