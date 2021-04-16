@@ -23,6 +23,22 @@ module Admin
       end
     end
 
+    def edit
+      @merchant = Merchant.find(params[:id])
+    end
+    
+    def update
+      merchant = Merchant.find(params[:id])
+      
+      if merchant.update(merchant_params)
+        redirect_to admin_merchant_path(merchant)
+        flash[:success] = 'Name successfully changed!'
+      else
+        redirect_to edit_admin_merchant_path(merchant)
+        flash[:error] = "Error: #{error_message(merchant.errors)}"
+      end
+    end
+
     def toggle_enabled
       @merchant = Merchant.find(params[:id])
 
