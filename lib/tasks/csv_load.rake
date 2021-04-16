@@ -43,6 +43,12 @@ namespace :csv_load do
     end
   end
 
+  task correction_seq_id: :environment do
+    ActiveRecord::Base.connection.tables.each do |t|
+        ActiveRecord::Base.connection.reset_pk_sequence!(t)
+    end
+  end
+
   task :all => :environment do
     Rake::Task["csv_load:merchants"].invoke
     Rake::Task["csv_load:customers"].invoke
@@ -50,6 +56,7 @@ namespace :csv_load do
     Rake::Task["csv_load:transactions"].invoke
     Rake::Task["csv_load:items"].invoke
     Rake::Task["csv_load:invoice_items"].invoke
+    Rake::Task["csv_load:correction_seq_id"].invoke
   end
 
 end

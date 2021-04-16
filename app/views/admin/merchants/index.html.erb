@@ -1,0 +1,38 @@
+<%= render partial: '/admin/header' %>
+<div><%= link_to 'New Merchant', new_admin_merchant_path %></div>
+<div class='admin_merchant_body'>
+  <div>
+    <div id='enabled_merchants'>
+      <h2>Enabled Merchants</h2>
+      <ul>
+      <% @merchants.all_enabled.each do |merchant| %>
+        <div class='admin_merchant'>
+          <li>
+            <%= link_to merchant.name, admin_merchant_path(merchant) %> 
+            <%= button_to 'Disable', toggle_enabled_admin_merchant_path(merchant), params: {enabled: false}, method: :patch %>
+          </li>
+        </div>
+      <% end %>
+      </ul>
+    </div>
+
+    <div id='disabled_merchants'>
+      <h2>Disabled Merchants</h2>
+      <ul>
+        <% @merchants.all_disabled.each do |merchant| %>
+          <div class='admin_merchant'>
+            <li>
+              <%= link_to merchant.name, admin_merchant_path(merchant) %> 
+              <%= button_to 'Enable', toggle_enabled_admin_merchant_path(merchant), method: :patch %>
+            </li>
+          </div>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <div id='top_merchants'>
+    <h2>Top Merchants</h2>
+    <ol></ol>
+  </div>
+</div>
