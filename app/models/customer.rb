@@ -13,9 +13,17 @@ class Customer < ApplicationRecord
         .limit(5)
   end
 
+  def self.find_by_merchant(merchant_id)
+    binding.pry
+  end
+
   def total_purchases
     invoices.joins(:transactions)
             .where(transactions: {result: 1})
             .count
+  end
+
+  def name
+    first_name + " " + last_name
   end
 end

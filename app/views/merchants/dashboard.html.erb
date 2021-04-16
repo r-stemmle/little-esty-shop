@@ -12,9 +12,17 @@
           <%= shippable_item.name %>
           <%= link_to shippable_item.invoice_id,
             "merchants/#{@merchant.id}/invoices/#{shippable_item.invoice_id}" %>
-
           <%= Invoice.find_by_id(shippable_item.invoice_id).created_at.strftime("%A, %B %d, %Y") %>
       </li>
         <% end %>
     </ul>
+</div>
+
+<div class="favorite-customers">
+  <h2>Favorite Customers</h2>
+      <% @merchant.favorite_customers.each do |customer| %>
+    <ol>
+      <%= customer.name %>
+    </ol>
+      <% end %>
 </div>

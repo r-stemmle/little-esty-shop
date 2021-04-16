@@ -11,4 +11,5 @@ class Item < ApplicationRecord
       self.joins(:invoice_items)
           .where('status != ?', 2)
   end
+
 end

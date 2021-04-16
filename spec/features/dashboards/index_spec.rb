@@ -42,7 +42,6 @@ RSpec.describe "As a Merchant" do
         expect(page).to have_content(item_5.name)
         expect(page).to_not have_content(item_6.name)
         expect(page).to_not have_content(item_7.name)
-        save_and_open_page
         expect(page).to have_link(
           invoice_item_1.invoice_id,
           href: "merchants/#{@merchant.id}/invoices/#{invoice_item_1.invoice_id}"
@@ -65,16 +64,47 @@ RSpec.describe "As a Merchant" do
       invoice_item_5 = create(:random_invoice_item, item: item_5, status: 0)
       invoice_item_6 = create(:random_invoice_item, item: item_6, status: 2)
       item_7 = create(:random_item)
-      save_and_open_page
 
       visit merchant_dashboard_path(@merchant)
 
       within ".merchant-items" do
         expect(page).to have_content(invoice_item_1.invoice.created_at.strftime("%A, %B %d, %Y"))
       end
-
-
     end
+
+    it "I see the names of the top 5 customers" do
+      customer_1 = create(:random_customer)
+      customer_2 = create(:random_customer)
+      customer_3 = create(:random_customer)
+      customer_4 = create(:random_customer)
+      customer_5 = create(:random_customer)
+      customer_6 = create(:random_customer)
+
+      invoice_1 = create(:random_invoice, customer: customer_1)
+      invoice_2 = create(:random_invoice, customer: customer_2)
+      invoice_3 = create(:random_invoice, customer: customer_3)
+      invoice_4 = create(:random_invoice, customer: customer_4)
+      invoice_5 = create(:random_invoice, customer: customer_5)
+      invoice_6 = create(:random_invoice, customer: customer_6)
+
+      transaction_1 = create(:random_transaction, result: 1, invoice: invoice_1)
+      transaction_2 = create(:random_transaction, result: 1, invoice: invoice_2)
+      transaction_3 = create(:random_transaction, result: 1, invoice: invoice_3)
+      transaction_4 = create(:random_transaction, result: 1, invoice: invoice_4)
+      transaction_5 = create(:random_transaction, result: 1, invoice: invoice_5)
+      transaction_6 = create(:random_transaction, result: 0, invoice: invoice_6)
+
+      visit merchant_dashboard_path(@merchant)
+
+      within ".favorite-customers" do
+        expect(page).to have_content(customer_1.name)
+        expect(page).to have_content(customer_2.name)
+        expect(page).to have_content(customer_3.name)
+        expect(page).to have_content(customer_4.name)
+        expect(page).to have_content(customer_5.name)
+      end
+    end
+
 
   end
 end
