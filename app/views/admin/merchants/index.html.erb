@@ -5,7 +5,7 @@
     <div id='enabled_merchants'>
       <h2>Enabled Merchants</h2>
       <ul>
-      <% @merchants.each do |merchant| %>
+      <% @merchants.all_enabled.each do |merchant| %>
         <li><%= link_to merchant.name, admin_merchant_path(merchant) %></li>
       <% end %>
       </ul>
@@ -13,7 +13,11 @@
 
     <div id='disabled_merchants'>
       <h2>Disabled Merchants</h2>
-      <ul></ul>
+      <ul>
+        <% @merchants.all_disabled.each do |merchant| %>
+          <li><%= link_to merchant.name, admin_merchant_path(merchant) %></li>
+        <% end %>
+      </ul>
     </div>
   </div>
 
