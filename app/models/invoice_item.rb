@@ -12,17 +12,16 @@ class InvoiceItem < ApplicationRecord
 
   def self.items_ready_to_ship(merchant)
     find_by_sql(
-      "select item.merchant_id as merchant_id, item.name as item_name,
-      item.id as item_id, ii.status, inv.id as invoice_id, inv.created_at as created_at
-        from invoice_items ii
-          inner join items item
+      "SELECT item.merchant_id AS merchant_id, item.name AS item_name,
+      item.id AS item_id, ii.status, inv.id AS invoice_id, inv.created_at AS created_at
+        FROM invoice_items ii
+          INNER JOIN items item
           ON ii.item_id=item.id
-          inner join invoices inv
+          INNER JOIN invoices inv
           ON ii.invoice_id=inv.id
           WHERE item.merchant_id=#{merchant.id}
-          and ii.status != 2
+          AND ii.status != 2
           ORDER BY created_at"
-
     )
   end
 

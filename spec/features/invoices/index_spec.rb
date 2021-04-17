@@ -17,7 +17,7 @@ RSpec.describe "Merchant invoices Index" do
   describe "When I visit my merchant invoices index" do
     it "I see all of the invoices that include at least one of my merchants items" do
       visit merchant_invoices_path(@merchant)
-      save_and_open_page
+
       expect(page).to have_content(@invoice_1.id)
       expect(page).to have_content(@invoice_3.id)
       expect(page).to have_content(@invoice_2.id)
