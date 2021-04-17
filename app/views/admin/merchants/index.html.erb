@@ -8,7 +8,7 @@
       <% @merchants.all_enabled.each do |merchant| %>
         <div class='admin_merchant'>
           <li>
-            <%= link_to merchant.name, admin_merchant_path(merchant) %> 
+            <%= link_to merchant.name, admin_merchant_path(merchant) %>
             <%= button_to 'Disable', toggle_enabled_admin_merchant_path(merchant), params: {enabled: false}, method: :patch %>
           </li>
         </div>
@@ -22,7 +22,7 @@
         <% @merchants.all_disabled.each do |merchant| %>
           <div class='admin_merchant'>
             <li>
-              <%= link_to merchant.name, admin_merchant_path(merchant) %> 
+              <%= link_to merchant.name, admin_merchant_path(merchant) %>
               <%= button_to 'Enable', toggle_enabled_admin_merchant_path(merchant), method: :patch %>
             </li>
           </div>
@@ -33,6 +33,11 @@
 
   <div id='top_merchants'>
     <h2>Top Merchants</h2>
-    <ol></ol>
+    <ol>
+      <% @invoice_items.highest_revenue_merchant_ids.each do |iv| %>
+        <li><%= @merchants.find(iv.merchant_id).name %> - <%= number_to_currency(iv.revenue) %></li>
+        <p>Top selling date for <%= @merchants.find(iv.merchant_id).name %> was <%= @invoice_items.best_date_by_merchant_id(iv.merchant_id).strftime("%m/%d/%Y") %> </p>
+      <% end %>
+    </ol>
   </div>
 </div>

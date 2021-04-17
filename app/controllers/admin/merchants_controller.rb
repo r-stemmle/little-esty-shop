@@ -2,8 +2,9 @@ module Admin
   class MerchantsController < ApplicationController
     def index
       @merchants = Merchant.all
+      @invoice_items = InvoiceItem.all
     end
-    
+
     def show
       @merchant = Merchant.find(params[:id])
     end
@@ -11,7 +12,7 @@ module Admin
     def new
       @merchant = Merchant.new
     end
-    
+
     def create
       merchant = Merchant.new(merchant_params)
 
@@ -26,10 +27,10 @@ module Admin
     def edit
       @merchant = Merchant.find(params[:id])
     end
-    
+
     def update
       merchant = Merchant.find(params[:id])
-      
+
       if merchant.update(merchant_params)
         redirect_to admin_merchant_path(merchant)
         flash[:success] = 'Name successfully changed!'
