@@ -90,6 +90,7 @@ RSpec.describe Merchant, type: :model do
         merchant_4 = create(:random_merchant)
         merchant_5 = create(:random_merchant)
         merchant_6 = create(:random_merchant)
+        merchant_7 = create(:random_merchant)
 
         item_1 = create(:random_item, merchant: merchant_1)
         item_2 = create(:random_item, merchant: merchant_2)
@@ -97,6 +98,7 @@ RSpec.describe Merchant, type: :model do
         item_4 = create(:random_item, merchant: merchant_4)
         item_5 = create(:random_item, merchant: merchant_5)
         item_6 = create(:random_item, merchant: merchant_6)
+        item_7 = create(:random_item, merchant: merchant_7)
 
         invoice_1 = create(:random_invoice)
         invoice_2 = create(:random_invoice)
@@ -104,6 +106,7 @@ RSpec.describe Merchant, type: :model do
         invoice_4 = create(:random_invoice)
         invoice_5 = create(:random_invoice)
         invoice_6 = create(:random_invoice)
+        invoice_7 = create(:random_invoice)
 
         invoice_item_1 = create(:random_invoice_item, invoice: invoice_1, item: item_1, unit_price: 1, quantity: 1)
         invoice_item_2 = create(:random_invoice_item, invoice: invoice_2, item: item_2, unit_price: 2, quantity: 1)
@@ -111,6 +114,7 @@ RSpec.describe Merchant, type: :model do
         invoice_item_4 = create(:random_invoice_item, invoice: invoice_4, item: item_4, unit_price: 4, quantity: 1)
         invoice_item_5 = create(:random_invoice_item, invoice: invoice_5, item: item_5, unit_price: 5, quantity: 1)
         invoice_item_6 = create(:random_invoice_item, invoice: invoice_6, item: item_6, unit_price: 6, quantity: 1)
+        invoice_item_7 = create(:random_invoice_item, invoice: invoice_7, item: item_7, unit_price: 0, quantity: 1)
 
         transaction_1 = create(:random_transaction, result: 1, invoice: invoice_1)
         transaction_2 = create(:random_transaction, result: 1, invoice: invoice_2)
@@ -118,6 +122,7 @@ RSpec.describe Merchant, type: :model do
         transaction_4 = create(:random_transaction, result: 1, invoice: invoice_4)
         transaction_5 = create(:random_transaction, result: 1, invoice: invoice_5)
         transaction_6 = create(:random_transaction, result: 0, invoice: invoice_6)
+        transaction_7 = create(:random_transaction, result: 1, invoice: invoice_7)
 
         expect(Merchant.top_merchants).to eq([merchant_5, merchant_4, merchant_3, merchant_2, merchant_1])
       end
