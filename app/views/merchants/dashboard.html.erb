@@ -22,7 +22,7 @@
   <h2>Favorite Customers</h2>
       <% @merchant.top_five_customers.each do |customer| %>
     <ol>
-      <%= customer.name %>
+      <%= customer.name %> Purchases: <%= customer.transactions_count %>
     </ol>
       <% end %>
 </div>
