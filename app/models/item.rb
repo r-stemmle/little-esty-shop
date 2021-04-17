@@ -6,4 +6,10 @@ class Item < ApplicationRecord
 
   validates_presence_of :name, :description
   validates :unit_price, presence: true, numericality: true
+
+  def self.not_shipped
+      self.joins(:invoice_items)
+          .where('status != ?', 2)
+  end
+
 end

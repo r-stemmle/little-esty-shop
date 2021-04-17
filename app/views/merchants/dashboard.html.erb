@@ -1,0 +1,28 @@
+<%= render 'header' %>
+
+<header id="merchant-title">
+  <h1><%= @merchant.name %></h1>
+</header>
+
+<div class="merchant-items">
+  <h2>Items Ready to Ship</h2>
+    <ul>
+        <% @merchant.ready_to_ship.each do |shippable_item| %>
+      <li>
+          <%= shippable_item.name %>
+          <%= link_to shippable_item.invoice_id,
+            "merchants/#{@merchant.id}/invoices/#{shippable_item.invoice_id}" %>
+          <%= Invoice.find_by_id(shippable_item.invoice_id).created_at.strftime("%A, %B %d, %Y") %>
+      </li>
+        <% end %>
+    </ul>
+</div>
+
+<div class="favorite-customers">
+  <h2>Favorite Customers</h2>
+      <% @merchant.top_five_customers.each do |customer| %>
+    <ol>
+      <%= customer.name %> Purchases: <%= customer.transactions_count %>
+    </ol>
+      <% end %>
+</div>
