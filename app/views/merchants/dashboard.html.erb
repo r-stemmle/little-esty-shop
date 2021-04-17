@@ -1,4 +1,4 @@
-<%= render 'header' %>
+<%= render 'header', locals: {merchant_id: @merchant} %>
 
 <header id="merchant-title">
   <h1><%= @merchant.name %></h1>
@@ -7,12 +7,10 @@
 <div class="merchant-items">
   <h2>Items Ready to Ship</h2>
     <ul>
-        <% @merchant.ready_to_ship.each do |shippable_item| %>
+        <% @invoice_items.items_ready_to_ship(@merchant).each do |item| %>
       <li>
-          <%= shippable_item.name %>
-          <%= link_to shippable_item.invoice_id,
-            "merchants/#{@merchant.id}/invoices/#{shippable_item.invoice_id}" %>
-          <%= Invoice.find_by_id(shippable_item.invoice_id).created_at.strftime("%A, %B %d, %Y") %>
+          <%= item.item_name %> <%= link_to item.invoice_id, merchant_invoice_path(@merchant.id, item.invoice_id) %> <%= item.created_at.strftime("%A, %B %d, %Y") %>
+
       </li>
         <% end %>
     </ul>
@@ -20,9 +18,9 @@
 
 <div class="favorite-customers">
   <h2>Favorite Customers</h2>
-      <% @merchant.top_five_customers.each do |customer| %>
+      <% @merchant.top_five_customers(@merchant.id).each do |customer| %>
     <ol>
-      <%= customer.name %> Purchases: <%= customer.transactions_count %>
+      <%= customer.name %> Purchases: <%= customer.count %>
     </ol>
       <% end %>
 </div>

@@ -40,18 +40,17 @@ class Merchant < ApplicationRecord
       revenue DESC')
   end
 
-  def ready_to_ship
-    items.joins(:invoice_items)
-         .joins(:invoices).select('invoice_items.*, items.*, invoices.created_at')
-         .where('invoice_items.status != 2')
-  end
-
-  def top_five_customers
-    customers.joins(:transactions)
-             .select("customers.*, count(transactions.*) as transactions_count")
-             .where(transactions: {result: 1})
-             .group(:id)
-             .order(transactions_count: :desc)
-             .limit(5)
+  def top_five_customers(merchant_id)
+    customers.find_by_sql("select c.*, count(t.id) as count from customers c
+                            INNER JOIN invoices i on c.id=i.customer_id
+                            INNER JOIN transactions t on i.id=t.invoice_id
+                            INNER JOIN invoice_items it on i.id=it.invoice_id
+                            INNER JOIN items ms on ms.id=it.item_id
+                            INNER JOIN merchants m on m.id=ms.merchant_id
+                            WHERE ms.merchant_id=#{merchant_id} and t.result=1
+                            GROUP BY c.id
+                            order by count desc
+                            limit 5"
+                            )
   end
 end
