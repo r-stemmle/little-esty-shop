@@ -34,7 +34,6 @@ RSpec.describe Merchant, type: :model do
         invoice_4 = create(:random_invoice, customer: customer_4)
         invoice_5 = create(:random_invoice, customer: customer_5)
         invoice_6 = create(:random_invoice, customer: customer_6)
-
         invoice_item_1 = create(:random_invoice_item, invoice: invoice_1, item: item_1, status: 0)
         invoice_item_2 = create(:random_invoice_item, invoice: invoice_2, item: item_2, status: 1)
         invoice_item_3 = create(:random_invoice_item, invoice: invoice_3, item: item_3, status: 2)

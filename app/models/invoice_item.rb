@@ -25,4 +25,8 @@ class InvoiceItem < ApplicationRecord
 
     )
   end
+
+  def self.by_merchant(merchant)
+    merchant.invoices.uniq
+  end
 end
