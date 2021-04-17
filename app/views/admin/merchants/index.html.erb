@@ -36,6 +36,7 @@
     <ol>
       <% @invoice_items.highest_revenue_merchant_ids.each do |iv| %>
         <li><%= @merchants.find(iv.merchant_id).name %> - <%= number_to_currency(iv.revenue) %></li>
+        <p>Top selling date for <%= @merchants.find(iv.merchant_id).name %> was <%= @invoice_items.best_date_by_merchant_id(iv.merchant_id).strftime("%m/%d/%Y") %> </p>
       <% end %>
     </ol>
   </div>

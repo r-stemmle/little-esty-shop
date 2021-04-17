@@ -19,4 +19,15 @@ class InvoiceItem < ApplicationRecord
     .order(revenue: :desc)
     .limit(5)
   end
+
+  def self.best_date_by_merchant_id(merchant_id)
+    joins(:item, invoice: :transactions)
+    .select("invoice_items.created_at, sum(invoice_items.unit_price * invoice_items.quantity) as revenue")
+    .where("transactions.result = 1 AND items.merchant_id = ?", merchant_id)
+    .group("invoice_items.created_at")
+    .order(revenue: :desc)
+    .limit(1)
+    .first
+    .created_at
+  end
 end

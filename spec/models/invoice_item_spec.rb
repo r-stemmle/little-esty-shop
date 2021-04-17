@@ -48,5 +48,18 @@ RSpec.describe InvoiceItem, type: :model do
       expect(InvoiceItem.highest_revenue_merchant_ids.first.revenue).to eq(5)
       expect(InvoiceItem.highest_revenue_merchant_ids.last.revenue).to eq(1)
     end
+
+    it '.best_date_by_merchant_id' do
+      merchant_1 = create(:random_merchant)
+      item_1 = create(:random_item, merchant: merchant_1)
+      invoice_1 = create(:random_invoice)
+      invoice_2 = create(:random_invoice)
+      invoice_item_1 = create(:random_invoice_item, invoice: invoice_1, item: item_1, unit_price: 1, quantity: 1, created_at: 20)
+      invoice_item_2 = create(:random_invoice_item, invoice: invoice_2, item: item_1, unit_price: 2, quantity: 1,created_at: 100)
+      transaction_1 = create(:random_transaction, result: 1, invoice: invoice_1)
+      transaction_2 = create(:random_transaction, result: 1, invoice: invoice_2)
+
+      expect(InvoiceItem.best_date_by_merchant_id(merchant_1.id)).to eq(invoice_item_2.created_at)
+    end
   end
 end
