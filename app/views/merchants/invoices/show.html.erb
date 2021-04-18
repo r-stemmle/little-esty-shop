@@ -1,0 +1,16 @@
+<h1>Merchants Invoices show page</h1>
+
+<h3>Invoice # <%= @invoice.id %></h3>
+
+<section>
+  <p>Status: <%= @invoice.status %></p>
+  <p>Created on: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></p>
+</section>
+
+<div class="customer">
+  <h2>Customer:</h2>
+  <ul>
+    <li><%= @invoice.customer.name %></li>
+  </ul>
+
+</div>
