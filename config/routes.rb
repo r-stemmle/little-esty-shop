@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       get :dashboard
     end
     scope module: :merchants do
-      resources :invoices, only: [:show, :index]
+      resources :invoices, only: [:show, :index, :update]
     end
      resources :items, only: [:index, :show]
   end

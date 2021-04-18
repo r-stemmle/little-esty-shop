@@ -3,7 +3,13 @@
 <h3> Invoice # <%= @invoice.id %> </h3>
 
 <section>
-  <p>Status: <%= @invoice.status %></p>
+  <p>
+    <%= form_with model: [:merchant, @invoice] do |form| %>
+                <%= form.label :status %>
+                <%= form.select :status, ['in progress', 'cancelled', 'completed'] %>
+                <%= form.submit %>
+              <% end %>
+  </p>
   <p>Created on: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></p>
 </section>
 
