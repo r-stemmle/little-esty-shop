@@ -22,11 +22,16 @@ RSpec.describe "Merchant Invoice Show Page" do
       merchant = create(:random_merchant)
       item_1 = create(:random_item, merchant: merchant)
       invoice_1 = create(:random_invoice)
-      invoice_item_1 = create(:random_invoice_item, item: item_1, invoice: invoice_1)
+      invoice_item_1 = create(:random_invoice_item, status: 'pending', unit_price: 17600, quantity: 75, item: item_1, invoice: invoice_1)
 
       visit merchant_invoice_path(merchant, invoice_1)
 
-      within ".show"
+      within ".show-items" do
+        expect(page).to have_content(item_1.name)
+        expect(page).to have_content(75)
+        expect(page).to have_content(176.00)
+        expect(page).to have_content('pending')
+      end
     end
   end
 end

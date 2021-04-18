@@ -1,6 +1,6 @@
-<h1>Merchants Invoices show page</h1>
+<h1> Merchants Invoices show page </h1>
 
-<h3>Invoice # <%= @invoice.id %></h3>
+<h3> Invoice # <%= @invoice.id %> </h3>
 
 <section>
   <p>Status: <%= @invoice.status %></p>
@@ -12,5 +12,14 @@
   <ul>
     <li><%= @invoice.customer.name %></li>
   </ul>
+</div>
+
+<div class="show-items">
+  <h2>Items on this Invoice:</h2>
+    <ul>
+      <% @invoice_items.each do |item| %>
+      <li> <%= item.name %> <%= item.quantity_ordered %> <%= number_to_currency(item.price_sold/100) %> <%= item.status %></li>
+      <% end %>
+    </ul>
 
 </div>

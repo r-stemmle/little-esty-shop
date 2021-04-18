@@ -92,6 +92,15 @@ RSpec.describe InvoiceItem, type: :model do
 
         expect(InvoiceItem.best_date_by_merchant_id(merchant_1.id)).to eq(invoice_item_2.created_at)
       end
+
+      it '.invoice_items_details by invoice' do
+        merchant = create(:random_merchant)
+        item_1 = create(:random_item, merchant: merchant)
+        invoice_1 = create(:random_invoice)
+        invoice_item_1 = create(:random_invoice_item, status: 'pending', unit_price: 17600, quantity: 75, item: item_1, invoice: invoice_1)
+      
+        expect(InvoiceItem.invoice_items_details(invoice_1).first.status).to eq('pending')
+      end
     end
   end
 end
