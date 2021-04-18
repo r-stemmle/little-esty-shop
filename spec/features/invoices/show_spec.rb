@@ -39,5 +39,15 @@ RSpec.describe "Merchant Invoice Show Page" do
         expect(page).to have_content('$1,320,000.00')
       end
     end
+
+    it "I see a dropdown to update the invoice status" do
+      expect(page).to have_button('Update Invoice')
+
+      select "completed", from: 'Status'
+      click_on 'Update Invoice'
+
+      expect(current_path).to eq(merchant_invoice_path(@merchant, @invoice_1))
+      expect(field: 'Status').to eq("completed")
+    end
   end
 end
