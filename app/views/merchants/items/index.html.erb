@@ -1,3 +1,12 @@
 <%= render 'merchants/header', locals: {merchant_id: @merchant} %>
 
 <h1>Merchants Items Index Page</h1>
+
+<div class="merchant-items">
+  <ul>
+    <% @merchant.items.each do |item| %>
+    <li> <%= item.name %> </li>
+    <% end %>
+  </ul>
+
+</div>
