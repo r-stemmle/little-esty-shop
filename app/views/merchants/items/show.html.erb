@@ -4,6 +4,10 @@
   <ul>
     <li> <h2><%= @item.name %></h2></li>
         <li>Description: <%= @item.description %></li>
-        <li>Current Selling Price: <%= @item.unit_price %></li>     
+        <li>Current Selling Price: <%= @item.unit_price %></li>
   </ul>
+</div>
+
+<div class="update-link">
+  <%= link_to "Update Item", edit_merchant_item_path(@merchant, @item) %>
 </div>

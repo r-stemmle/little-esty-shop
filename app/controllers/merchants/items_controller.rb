@@ -9,4 +9,10 @@ class Merchants::ItemsController < ApplicationController
     @merchant = Merchant.find(params[:merchant_id])
     @item = Item.find(params[:id])
   end
+
+  def edit
+    # binding.pry
+    @merchant = Merchant.find(params[:merchant_id])
+    @item = Item.find(params[:id])
+  end
 end

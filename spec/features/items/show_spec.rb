@@ -12,7 +12,6 @@ RSpec.describe "Merchant Items Show Page" do
       expect(page).to have_content(item_1.name)
       expect(page).to have_content(item_1.description)
       expect(page).to have_content(item_1.unit_price)
-      save_and_open_page
     end
   end
 end

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     scope module: :merchants do
       resources :dashboard, only: [:index]
       resources :invoices, only: [:show, :index, :update]
-      resources :items, only: [:index, :show]
+      resources :items, only: [:index, :show, :update, :edit]
     end
   end
 
