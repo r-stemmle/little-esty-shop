@@ -1,0 +1,8 @@
+<footer>
+  <h3>footer</h3>
+  <% service = GitHubService.new(ENV["GITHUB_TOKEN"]) %>
+  <h4>collaborators</h4>
+  <% service.get_collaborators.each do |collab| %>
+    <%= collab[:login] %>
+  <% end %>
+</footer>
