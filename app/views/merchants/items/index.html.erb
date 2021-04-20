@@ -3,10 +3,22 @@
 <h1>Merchants Items Index Page</h1>
 
 <div class="merchant-items">
-  <ul>
-    <% @merchant.items.each do |item| %>
-    <li> <%= link_to item.name, merchant_item_path(@merchant, item.id) %> </li>
-    <% end %>
-  </ul>
+  <div id='enabled-items'>
+    <h2>Enabled Items</h2>
+    <ul>
+      <% @merchant.items_enabled.each do |item| %>
+      <li> <%= link_to item.name, merchant_item_path(@merchant, item.id) %> </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div id="disabled-items">
+    <h2>Disabled Items</h2>
+    <ul>
+      <% @merchant.items_disabled.each do |item| %>
+      <li> <%= link_to item.name, merchant_item_path(@merchant, item.id) %> </li>
+      <% end %>
+    </ul>
+  </div>
 
 </div>

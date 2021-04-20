@@ -12,4 +12,12 @@ class Item < ApplicationRecord
           .where('status != ?', 2)
   end
 
+  def self.items_enabled
+    where(enabled: true)
+  end
+
+  def self.items_disabled
+    where(enabled: false)
+  end
+
 end

@@ -27,5 +27,23 @@ RSpec.describe Item, type: :model do
         expect(Item.not_shipped).to eq([item_1, item_2])
       end
     end
+
+    describe ".items_enabled" do
+      it "returns items that are enabled" do
+        item_1 = create(:random_item, id: 1, enabled: true)
+        item_2 = create(:random_item, id: 2, enabled: true)
+        item_3 = create(:random_item, id: 3, enabled: false)
+        expect(Item.items_enabled).to eq([item_1, item_2])
+      end
+    end
+
+    describe ".items_disabled" do
+      it "returns items that are disabled" do
+        item_1 = create(:random_item, id: 1, enabled: true)
+        item_2 = create(:random_item, id: 2, enabled: true)
+        item_3 = create(:random_item, id: 3, enabled: false)
+        expect(Item.items_disabled).to eq([item_3])
+      end
+    end
   end
 end
