@@ -3,6 +3,7 @@
   <% service = GitHubService.new(ENV["GITHUB_TOKEN"]) %>
   <h4>collaborators</h4>
   <% service.get_collaborators.each do |collab| %>
-    <%= collab[:login] %>
+    <% name = collab[:login] %>
+    <span>|<%= name %> - <%= service.commits_by_author(name) %> commits|</span>
   <% end %>
 </footer>
