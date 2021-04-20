@@ -94,7 +94,9 @@ RSpec.describe Merchant, type: :model do
         transaction_5 = create(:random_transaction, result: 1, invoice: invoice_5)
         transaction_6 = create(:random_transaction, result: 1, invoice: invoice_6)
 
-        expect(merchant.top_five_items).to eq([item_1, item_2, item_3, item_5, item_6])
+        actual = merchant.top_five_items
+        expected = actual.map(&:item_name)
+        expect([item_1.name, item_2.name, item_3.name, item_5.name, item_6.name]).to eq(expected)
       end
     end
 
