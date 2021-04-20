@@ -6,17 +6,19 @@
   <div id='enabled-items'>
     <h2>Enabled Items</h2>
     <ul>
-      <% @merchant.items_enabled.each do |item| %>
+      <% @merchant.items.items_enabled.each do |item| %>
       <li> <%= link_to item.name, merchant_item_path(@merchant, item.id) %> </li>
+      <%= button_to 'Disable', toggle_enabled_merchant_item_path(@merchant, item), params: {enabled: false}, method: :patch %>
       <% end %>
     </ul>
   </div>
 
-  <div id="disabled-items">
+  <div id='disabled-items'>
     <h2>Disabled Items</h2>
     <ul>
-      <% @merchant.items_disabled.each do |item| %>
+      <% @merchant.items.items_disabled.each do |item| %>
       <li> <%= link_to item.name, merchant_item_path(@merchant, item.id) %> </li>
+      <%= button_to 'Enable', toggle_enabled_merchant_item_path(@merchant, item), method: :patch %>
       <% end %>
     </ul>
   </div>

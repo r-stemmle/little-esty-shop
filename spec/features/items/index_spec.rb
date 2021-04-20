@@ -35,7 +35,7 @@ RSpec.describe "Merchant Items Index Page" do
 
     it "I see a button to enable or disable each item" do
       merchant = create(:random_merchant, id: 22)
-      item_1 = create(:random_item, id: 1, merchant_id: 22)
+      item_1 = create(:random_item, id: 1, merchant_id: 22, enabled: true)
       item_2 = create(:random_item, id: 2, merchant_id: 22)
 
       visit merchant_items_path(merchant)
@@ -52,5 +52,35 @@ RSpec.describe "Merchant Items Index Page" do
         expect(page).to have_button('Enable')
       end
     end
+
+    it "When I click on the disable button the item is no longer there" do
+      merchant = create(:random_merchant, id: 22)
+      item_1 = create(:random_item, id: 1, merchant_id: 22, enabled: true)
+      item_2 = create(:random_item, id: 2, merchant_id: 22)
+
+      visit merchant_items_path(merchant)
+
+      within '#enabled-items' do
+        expect(page).to have_content(item_1.name)
+        click_on 'Disable'
+        expect(current_path).to eq(merchant_items_path(merchant))
+        expect(page).to_not have_content(item_1.name)
+      end
+    end
+
+    it "When I click on the enable button the item is now enabled" do
+      merchant = create(:random_merchant, id: 22)
+      item_1 = create(:random_item, id: 1, merchant_id: 22, enabled: true)
+      item_2 = create(:random_item, id: 2, merchant_id: 22)
+
+      visit merchant_items_path(merchant)
+      
+      within '#disabled-items' do
+        click_on 'Enable'
+        expect(current_path).to eq(merchant_items_path(merchant))
+        expect(page).to_not have_content(item_2.name)
+      end
+    end
+
   end
 end

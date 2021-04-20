@@ -27,6 +27,13 @@ class Merchants::ItemsController < ApplicationController
     end
   end
 
+  def toggle_enabled
+    @item = Item.find(params[:id])
+    @item.toggle!(:enabled)
+    redirect_to merchant_items_path
+
+  end
+
   private
   def item_params
     params.require(:item).permit(:name, :description, :unit_price)
