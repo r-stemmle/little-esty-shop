@@ -1,12 +1,5 @@
 require 'rails_helper'
 
-# Merchant Items Index Page
-#
-# As a merchant,
-# When I visit my merchant items index page ("merchant/merchant_id/items")
-# I see a list of the names of all of my items
-# And I do not see items for any other merchant
-
 RSpec.describe "Merchant Items Index Page" do
   context "I visit the items index page" do
     it "I see a list of the names of all my items they are links to the items show page" do

@@ -34,6 +34,7 @@ RSpec.describe Merchant, type: :model do
         invoice_4 = create(:random_invoice, customer: customer_4)
         invoice_5 = create(:random_invoice, customer: customer_5)
         invoice_6 = create(:random_invoice, customer: customer_6)
+
         invoice_item_1 = create(:random_invoice_item, invoice: invoice_1, item: item_1, status: 0)
         invoice_item_2 = create(:random_invoice_item, invoice: invoice_2, item: item_2, status: 1)
         invoice_item_3 = create(:random_invoice_item, invoice: invoice_3, item: item_3, status: 2)
@@ -52,6 +53,48 @@ RSpec.describe Merchant, type: :model do
           customer_1, customer_2, customer_3, customer_4, customer_5
           ])
         end
+      end
+    end
+
+    describe "#top_five_items" do
+      it "returns the top 5 items with the most total revenue" do
+        merchant = create(:random_merchant, id: 22)
+        item_1 = create(:random_item, id: 1, merchant_id: 22)
+        item_2 = create(:random_item, id: 2, merchant_id: 22)
+        item_3 = create(:random_item, id: 3, merchant_id: 22)
+        item_4 = create(:random_item, id: 4, merchant_id: 22)
+        item_5 = create(:random_item, id: 5, merchant_id: 22)
+        item_6 = create(:random_item, id: 6, merchant_id: 22)
+
+        customer_1 = create(:random_customer)
+        customer_2 = create(:random_customer)
+        customer_3 = create(:random_customer)
+        customer_4 = create(:random_customer)
+        customer_5 = create(:random_customer)
+        customer_6 = create(:random_customer)
+
+        invoice_1 = create(:random_invoice, customer: customer_1)
+        invoice_2 = create(:random_invoice, customer: customer_2)
+        invoice_3 = create(:random_invoice, customer: customer_3)
+        invoice_4 = create(:random_invoice, customer: customer_4)
+        invoice_5 = create(:random_invoice, customer: customer_5)
+        invoice_6 = create(:random_invoice, customer: customer_6)
+
+        invoice_item_1 = create(:random_invoice_item, unit_price: 100, quantity: 10, invoice: invoice_1, item: item_1, status: 0)
+        invoice_item_2 = create(:random_invoice_item, unit_price: 90, quantity: 9, invoice: invoice_2, item: item_2, status: 1)
+        invoice_item_3 = create(:random_invoice_item, unit_price: 80, quantity: 8, invoice: invoice_3, item: item_3, status: 2)
+        invoice_item_4 = create(:random_invoice_item, unit_price: 10, quantity: 1, invoice: invoice_4, item: item_4, status: 2)
+        invoice_item_5 = create(:random_invoice_item, unit_price: 70, quantity: 7, invoice: invoice_5, item: item_5, status: 2)
+        invoice_item_6 = create(:random_invoice_item, unit_price: 60, quantity: 6, invoice: invoice_6, item: item_6, status: 2)
+
+        transaction_1 = create(:random_transaction, result: 1, invoice: invoice_1)
+        transaction_2 = create(:random_transaction, result: 1, invoice: invoice_2)
+        transaction_3 = create(:random_transaction, result: 1, invoice: invoice_3)
+        transaction_4 = create(:random_transaction, result: 1, invoice: invoice_4)
+        transaction_5 = create(:random_transaction, result: 1, invoice: invoice_5)
+        transaction_6 = create(:random_transaction, result: 1, invoice: invoice_6)
+
+        expect(merchant.top_five_items).to eq([item_1, item_2, item_3, item_5, item_6])
       end
     end
 

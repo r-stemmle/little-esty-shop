@@ -45,17 +45,5 @@ RSpec.describe Item, type: :model do
         expect(Item.items_disabled).to eq([item_3])
       end
     end
-
-    describe ".top_5_items" do
-    it "returns the top 5 items with the most total revenue" do
-      item_1 = create(:random_item, id: 1)
-      item_2 = create(:random_item, id: 2)
-      item_3 = create(:random_item, id: 3)
-      item_4 = create(:random_item, id: 1)
-      item_5 = create(:random_item, id: 2)
-      item_6 = create(:random_item, id: 3)
-      expect(Item.top_5_items).to eq([item_1, item_2, item_3, item_5, item_6])
-
-    end
   end
 end
