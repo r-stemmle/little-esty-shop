@@ -1,7 +1,7 @@
 <%= render 'merchants/header', locals: {merchant_id: @merchant} %>
 
 <h1>Merchants Items Index Page</h1>
-
+<p><%= link_to "New item", new_merchant_item_path(@merchant) %></p>
 <div class="merchant-items">
   <div id='enabled-items'>
     <h2>Enabled Items</h2>

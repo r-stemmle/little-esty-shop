@@ -23,7 +23,7 @@ class Merchants::ItemsController < ApplicationController
       flash[:success] = 'Item successfully updated!'
     else
       redirect_to edit_merchant_item_path(merchant, item)
-      flash[:error] = "Error: #{error_message(merchant.errors)}"
+      flash[:error] = "Error: #{error_message(item.errors)}"
     end
   end
 
@@ -31,8 +31,24 @@ class Merchants::ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @item.toggle!(:enabled)
     redirect_to merchant_items_path
+  end
+
+  def new
+  end
+
+  def create
+    merchant = Merchant.find(params[:merchant_id])
+    item = merchant.items.new(item_params)
+
+    if item.save
+      redirect_to merchant_items_path
+    else
+      redirect_to new_merchant_item_path
+      flash[:error] = "Error: #{error_message(item.errors)}"
+    end
 
   end
+
 
   private
   def item_params
