@@ -4,6 +4,6 @@
   <h4>collaborators</h4>
   <% service.get_collaborators.each do |collab| %>
     <% name = collab[:login] %>
-    <span>|<%= name %> - <%= service.commits_by_author(name) %> commits|</span>
+    <span>🦧  <%= name %> - <%= service.commits_by_author(name) %> commits  🦥</span>
   <% end %>
 </footer>
