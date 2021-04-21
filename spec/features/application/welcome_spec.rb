@@ -5,7 +5,7 @@ RSpec.describe 'root welcome page' do
     it 'has collaborators and their commits in the footer' do
       visit root_path
 
-      expect(page).to have_content('BrianZanti - 39 commits')
+      expect(page).to have_content('fakename - 5 commits')
     end
   end
 end
