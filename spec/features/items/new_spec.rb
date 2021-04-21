@@ -28,6 +28,24 @@ RSpec.describe "Merchant New Item" do
           expect(page).to have_content("new name")
         end
       end
+
+      it "I am taken to a form that allows me to add new item information" do
+        visit new_merchant_item_path(@merchant)
+
+        fill_in "Name", with: ""
+        fill_in "Description", with: ""
+        fill_in "Unit price", with: ''
+
+        click_on "Create Item"
+
+
+        expect(current_path).to eq(new_merchant_item_path(@merchant))
+
+        expect(page).to have_content("Error: Name can't be blank, Description can't be blank, Unit price can't be blank, Unit price is not a number")
+
+
+      end
+
     end
   end
 end
