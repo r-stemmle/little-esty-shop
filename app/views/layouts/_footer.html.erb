@@ -1,9 +1,12 @@
 <footer>
   <h3>footer</h3>
   <% service = GitHubService.new(ENV["GITHUB_TOKEN"]) %>
+  <% all_commits = service.get_commits %>
   <h4>collaborators</h4>
   <% service.get_collaborators.each do |collab| %>
+
     <% name = collab[:login] %>
-    <span>🦧  <%= name %> - <%= service.commits_by_author(name) %> commits  🦥</span>
+    <span>🦧  <%= name %> - <%= service.commits_by_author(all_commits, name) %> commits  🦥</span>
   <% end %>
 </footer>
+<p>Number of Merged Pull Requests: <%= service.get_pull_requests.count - 1 %></p>

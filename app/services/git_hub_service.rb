@@ -13,8 +13,8 @@ class GitHubService
       )
     end
 
-    def commits_by_author(author)
-      get_commits.find do |data|
+    def commits_by_author(commits, author)
+      commits.find do |data|
         data[:author][:login] == author
       end[:total]
     end
@@ -30,5 +30,16 @@ class GitHubService
     def get_collaborators
       resp = conn.get('/repos/georgehwho/little-esty-shop/collaborators')
       JSON.parse(resp.body, symbolize_names: true)
+    end
+
+    def get_pull_requests
+      resp = conn.get('/repos/georgehwho/little-esty-shop/pulls', {
+        owner: 'georgehwho',
+        repo: 'little-esty-shop',
+        state: 'closed',
+        sort: 'is merged'
+        })
+      t = JSON.parse(resp.body, symbolize_names: true)
+
     end
   end
