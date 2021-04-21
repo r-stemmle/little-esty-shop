@@ -39,7 +39,13 @@ class GitHubService
         state: 'closed',
         sort: 'is merged'
         })
-      t = JSON.parse(resp.body, symbolize_names: true)
+      JSON.parse(resp.body, symbolize_names: true)
 
+    end
+
+    def get_repo_name
+      resp = conn.get('/repos/georgehwho/little-esty-shop')
+      json = JSON.parse(resp.body, symbolize_names: true)
+      json[:name]
     end
   end

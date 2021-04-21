@@ -38,9 +38,13 @@ RSpec.configure do |config|
   config.before :each do
     mock_commits = [{author: {login: 'fakename'}, total: 5}, {author: {login: 'George'}, total: 6}]
     mock_collaborators = [{login: 'fakename'}, {login: 'George'}]
-    
+    mock_repo = {:id=>357320609, :name=>"little-esty-shop", :full_name=>"georgehwho/little-esty-shop" }
+    mock_prs = [{},{},{},{}, {}]
+
     allow_any_instance_of(GitHubService).to receive(:get_commits).and_return(mock_commits)
     allow_any_instance_of(GitHubService).to receive(:get_collaborators).and_return(mock_collaborators)
+    allow_any_instance_of(GitHubService).to receive(:get_repo_name).and_return(mock_repo)
+    allow_any_instance_of(GitHubService).to receive(:get_pull_requests).and_return(mock_prs)
   end
 
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
