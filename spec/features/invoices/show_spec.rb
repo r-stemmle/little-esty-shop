@@ -41,13 +41,14 @@ RSpec.describe "Merchant Invoice Show Page" do
     end
 
     it "I see a dropdown to update the invoice status" do
+      # binding.pry
       expect(page).to have_button('Update Invoice')
 
       select "completed", from: 'Status'
       click_on 'Update Invoice'
-
+    
       expect(current_path).to eq(merchant_invoice_path(@merchant, @invoice_1))
-      expect(field: 'Status').to eq("completed")
+      expect(page).to have_content("completed")
     end
   end
 end

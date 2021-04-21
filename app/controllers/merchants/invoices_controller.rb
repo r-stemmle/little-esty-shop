@@ -12,8 +12,9 @@ class Merchants::InvoicesController < ApplicationController
 
   def update
     invoice = Invoice.find(params[:id])
+    merchant = Merchant.find(params[:merchant_id])
     invoice.update(user_params)
-    redirect_to merchant_invoice_path(invoice)
+    redirect_to merchant_invoice_path(merchant)
   end
 
   private

@@ -1,3 +1,35 @@
 <%= render 'merchants/header', locals: {merchant_id: @merchant} %>
 
 <h1>Merchants Items Index Page</h1>
+<p><%= link_to "New item", new_merchant_item_path(@merchant) %></p>
+<div class="merchant-items">
+  <div id='enabled-items'>
+    <h2>Enabled Items</h2>
+    <ul>
+      <% @merchant.items.items_enabled.each do |item| %>
+      <li> <%= link_to item.name, merchant_item_path(@merchant, item.id) %> </li>
+      <%= button_to 'Disable', toggle_enabled_merchant_item_path(@merchant, item), params: {enabled: false}, method: :patch %>
+      <% end %>
+    </ul>
+  </div>
+
+  <div id='disabled-items'>
+    <h2>Disabled Items</h2>
+    <ul>
+      <% @merchant.items.items_disabled.each do |item| %>
+      <li> <%= link_to item.name, merchant_item_path(@merchant, item.id) %> </li>
+      <%= button_to 'Enable', toggle_enabled_merchant_item_path(@merchant, item), method: :patch %>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<div class="top-items">
+  <h2>Top Items</h2>
+  <ol>
+    <% @merchant.top_five_items.each do |item| %>
+    <li><%= item.item_name %>-----<%= number_to_currency(item.revenue) %> in sales</li>
+        <p>Top day for <%= item.item_name %>was <%= @items.find_by_name(item.item_name).top_sales_day %></p>
+    <% end %>
+  </ol>
+</div>
