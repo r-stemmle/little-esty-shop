@@ -29,6 +29,7 @@
   <ol>
     <% @merchant.top_five_items.each do |item| %>
     <li><%= item.item_name %>-----<%= number_to_currency(item.revenue) %> in sales</li>
+        <p>Top day for <%= item.item_name %>was <%= @items.find_by_name(item.item_name).top_sales_day %></p>
     <% end %>
   </ol>
 </div>

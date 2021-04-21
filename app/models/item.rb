@@ -20,4 +20,13 @@ class Item < ApplicationRecord
     where(enabled: false)
   end
 
+  def top_sales_day
+    invoices.select("invoices.*, (invoice_items.quantity * invoice_items.unit_price) as revenue")
+            .order("revenue desc")
+            .limit(1)
+            .first
+            .created_at
+            .strftime('%m/%d/%y')
+  end
+
 end

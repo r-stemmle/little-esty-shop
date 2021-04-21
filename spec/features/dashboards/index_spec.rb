@@ -44,7 +44,7 @@ RSpec.describe "As a Merchant" do
         expect(page).to have_content(item_5.name)
         expect(page).to_not have_content(item_6.name)
         expect(page).to_not have_content(item_7.name)
-        expect(page).to have_link(invoice_item_1.invoice_id)
+        expect(page).to have_link("#{invoice_item_1.invoice_id}")
       end
     end
 

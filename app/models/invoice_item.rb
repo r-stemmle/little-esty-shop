@@ -6,11 +6,6 @@ class InvoiceItem < ApplicationRecord
 
   validates_presence_of :quantity, :unit_price
 
-  def self.lines_not_shipped
-    where('status != ?', 2)
-  end
-
-
   def self.items_ready_to_ship(merchant)
     find_by_sql(
       "SELECT item.merchant_id AS merchant_id, item.name AS item_name,

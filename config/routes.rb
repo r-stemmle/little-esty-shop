@@ -14,8 +14,6 @@ Rails.application.routes.draw do
     end
   end
 
-
-
   namespace :admin do
     resources :invoices
     resources :merchants do
