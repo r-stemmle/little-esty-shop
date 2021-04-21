@@ -12,4 +12,21 @@ class Item < ApplicationRecord
           .where('status != ?', 2)
   end
 
+  def self.items_enabled
+    where(enabled: true)
+  end
+
+  def self.items_disabled
+    where(enabled: false)
+  end
+
+  def top_sales_day
+    invoices.select("invoices.*, (invoice_items.quantity * invoice_items.unit_price) as revenue")
+            .order("revenue desc")
+            .limit(1)
+            .first
+            .created_at
+            .strftime('%m/%d/%y')
+  end
+
 end

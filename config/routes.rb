@@ -6,11 +6,13 @@ Rails.application.routes.draw do
     scope module: :merchants do
       resources :dashboard, only: [:index]
       resources :invoices, only: [:show, :index, :update]
-      resources :items, only: [:index, :show]
+      resources :items do
+        member do
+          patch :toggle_enabled
+        end
+      end
     end
   end
-
-
 
   namespace :admin do
     resources :invoices
