@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :merchants, only: [:show, :create] do
     scope module: :merchants do
+      resources :discounts
       resources :dashboard, only: [:index]
       resources :invoices, only: [:show, :index, :update]
       resources :items do
