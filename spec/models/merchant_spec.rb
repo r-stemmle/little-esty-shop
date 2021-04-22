@@ -42,16 +42,34 @@ RSpec.describe Merchant, type: :model do
         invoice_item_5 = create(:random_invoice_item, invoice: invoice_5, item: item_5, status: 2)
         invoice_item_6 = create(:random_invoice_item, invoice: invoice_6, item: item_6, status: 2)
 
-        transaction_1 = create(:random_transaction, result: 1, invoice: invoice_1)
-        transaction_2 = create(:random_transaction, result: 1, invoice: invoice_2)
-        transaction_3 = create(:random_transaction, result: 1, invoice: invoice_3)
-        transaction_4 = create(:random_transaction, result: 1, invoice: invoice_4)
+        transaction_1a = create(:random_transaction, result: 1, invoice: invoice_1)
+        transaction_1b = create(:random_transaction, result: 1, invoice: invoice_1)
+        transaction_1c = create(:random_transaction, result: 1, invoice: invoice_1)
+        transaction_1d = create(:random_transaction, result: 1, invoice: invoice_1)
+        transaction_1e = create(:random_transaction, result: 1, invoice: invoice_1)
+
+        transaction_2a = create(:random_transaction, result: 1, invoice: invoice_2)
+        transaction_2b = create(:random_transaction, result: 1, invoice: invoice_2)
+        transaction_2c = create(:random_transaction, result: 1, invoice: invoice_2)
+        transaction_2d = create(:random_transaction, result: 1, invoice: invoice_2)
+        # transaction_2e = create(:random_transaction, result: 1, invoice: invoice_2)
+
+        transaction_3a = create(:random_transaction, result: 1, invoice: invoice_3)
+        transaction_3b = create(:random_transaction, result: 1, invoice: invoice_3)
+        transaction_3c = create(:random_transaction, result: 1, invoice: invoice_3)
+
+        transaction_4a = create(:random_transaction, result: 1, invoice: invoice_4)
+        transaction_4b = create(:random_transaction, result: 1, invoice: invoice_4)
+
         transaction_5 = create(:random_transaction, result: 1, invoice: invoice_5)
+
         transaction_6 = create(:random_transaction, result: 0, invoice: invoice_6)
 
-        expect(merchant.top_five_customers(merchant.id)).to eq([
-          customer_1, customer_2, customer_3, customer_4, customer_5
-          ])
+        expect(merchant.top_five_customers.first.name).to eq(customer_1.first_name)
+        expect(merchant.top_five_customers.second.name).to eq(customer_2.first_name)
+        expect(merchant.top_five_customers.third.name).to eq(customer_3.first_name)
+        expect(merchant.top_five_customers.fourth.name).to eq(customer_4.first_name)
+        expect(merchant.top_five_customers.last.name).to eq(customer_5.first_name)
         end
       end
     end

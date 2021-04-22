@@ -100,21 +100,46 @@ RSpec.describe "As a Merchant" do
       invoice_item_5 = create(:random_invoice_item, invoice: invoice_5, item: item_5, status: 2)
       invoice_item_6 = create(:random_invoice_item, invoice: invoice_6, item: item_6, status: 2)
 
-      transaction_1 = create(:random_transaction, result: 1, invoice: invoice_1)
-      transaction_2 = create(:random_transaction, result: 1, invoice: invoice_2)
-      transaction_3 = create(:random_transaction, result: 1, invoice: invoice_3)
-      transaction_4 = create(:random_transaction, result: 1, invoice: invoice_4)
+      transaction_1a = create(:random_transaction, result: 1, invoice: invoice_1)
+      transaction_1b = create(:random_transaction, result: 1, invoice: invoice_1)
+      transaction_1c = create(:random_transaction, result: 1, invoice: invoice_1)
+      transaction_1d = create(:random_transaction, result: 1, invoice: invoice_1)
+      transaction_1e = create(:random_transaction, result: 1, invoice: invoice_1)
+
+      transaction_2a = create(:random_transaction, result: 1, invoice: invoice_2)
+      transaction_2b = create(:random_transaction, result: 1, invoice: invoice_2)
+      transaction_2c = create(:random_transaction, result: 1, invoice: invoice_2)
+      transaction_2d = create(:random_transaction, result: 1, invoice: invoice_2)
+      transaction_2e = create(:random_transaction, result: 1, invoice: invoice_2)
+
+      transaction_3a = create(:random_transaction, result: 1, invoice: invoice_3)
+      transaction_3b = create(:random_transaction, result: 1, invoice: invoice_3)
+      transaction_3c = create(:random_transaction, result: 1, invoice: invoice_3)
+
+      transaction_4a = create(:random_transaction, result: 1, invoice: invoice_4)
+      transaction_4b = create(:random_transaction, result: 1, invoice: invoice_4)
+
       transaction_5 = create(:random_transaction, result: 1, invoice: invoice_5)
+
       transaction_6 = create(:random_transaction, result: 0, invoice: invoice_6)
 
       visit merchant_dashboard_index_path(merchant)
 
       within ".favorite-customers" do
+        expect(customer_1.name).to appear_before(customer_2.name)
+        expect(customer_2.name).to appear_before(customer_3.name)
+        expect(customer_3.name).to appear_before(customer_4.name)
+        expect(customer_4.name).to appear_before(customer_5.name)
         expect(page).to have_content(customer_1.name)
         expect(page).to have_content(customer_2.name)
         expect(page).to have_content(customer_3.name)
         expect(page).to have_content(customer_4.name)
         expect(page).to have_content(customer_5.name)
+        expect(page).to have_content(customer_1.transactions.count)
+        expect(page).to have_content(customer_2.transactions.count)
+        expect(page).to have_content(customer_3.transactions.count)
+        expect(page).to have_content(customer_4.transactions.count)
+        expect(page).to have_content(customer_5.transactions.count)
       end
     end
   end
