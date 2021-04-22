@@ -1,3 +1,5 @@
+require 'faraday'
+require 'json'
 class GitHubService
     def initialize(token)
       @token = token
@@ -39,8 +41,8 @@ class GitHubService
         state: 'closed',
         sort: 'is merged'
         })
-      JSON.parse(resp.body, symbolize_names: true)
-
+        json = JSON.parse(resp.body, symbolize_names: true)
+        json.select { |pr| pr[:merged_at] }
     end
 
     def get_repo_name
@@ -49,3 +51,6 @@ class GitHubService
       json[:name]
     end
   end
+
+  service = GitHubService.new(ENV["GITHUB_TOKEN"])
+  service.get_pull_requests
