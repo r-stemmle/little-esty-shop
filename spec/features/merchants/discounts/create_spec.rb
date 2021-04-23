@@ -15,13 +15,15 @@ RSpec.describe "Merchant Bulk Discount Create" do
       visit merchant_discounts_path(merchant)
       click_on "Create Discount"
       expect(current_path).to eq(new_merchant_discount_path(merchant))
-      save_and_open_page
+      fill_in "Percent", with: 0.7
+      fill_in "Quantity", with: 70
+      click_on "Create Discount"
+      expect(current_path).to eq(merchant_discounts_path(merchant))
+      expect(page).to have_content('70%')
+      expect(page).to have_content('70')
+      # save_and_open_page
     end
   end
 
-# When I click this link
-# Then I am taken to a new page where I see a form to add a new bulk discount
-# When I fill in the form with valid data
-# Then I am redirected back to the bulk discount index
-# And I see my new bulk discount listed
+
 end
