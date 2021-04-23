@@ -16,6 +16,10 @@
     </ul>
 </div>
 
+<div class="discounts">
+  <h2>  <%= link_to "View Discounts", merchant_discounts_path(@merchant) %> </h2>
+</div>
+
 <div class="favorite-customers">
   <h2>Favorite Customers</h2>
       <% @merchant.top_five_customers.each do |customer| %>

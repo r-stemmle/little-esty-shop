@@ -42,7 +42,7 @@ class GitHubService
         sort: 'is merged'
         })
         json = JSON.parse(resp.body, symbolize_names: true)
-        json.select { |pr| pr[:merged_at] }
+        # json.select { |pr| pr[:merged_at] }
     end
 
     def get_repo_name
