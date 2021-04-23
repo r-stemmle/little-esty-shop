@@ -44,7 +44,12 @@ RSpec.describe "Buld Discounts Index Page" do
       expect(page).to have_link("#{@discount_6.id}")
       expect(page).to have_content('60%')
       expect(page).to have_content(@discount_6.quantity)
+    end
 
+    it "I see a section with a header of 'Upcoming Holidays'" do
+      expect(page).to have_content("Upcoming Holidays")
+      save_and_open_page
+      
     end
 
 

@@ -1,6 +1,16 @@
 <h1>Discounts Index Page</h1>
 
+<header>
+  <h2>Upcoming Holidays</h2>
+  <ul>
+    <% @upcoming_holidays.each do |holiday| %>
+    <li><%= holiday[:name] %> <%= holiday[:date] %></li>
+    <% end %>
+  </ul>
+</header>
+
 <div class="discounts">
+  <h2>Bulk Discounts:</h2>
   <ul>
     <% @discounts.each do |discount| %>
     <li>Discount No. <%= link_to discount.id, merchant_discount_path(@merchant.id, discount.id) %>
