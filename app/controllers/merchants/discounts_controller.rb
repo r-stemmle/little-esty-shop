@@ -4,4 +4,8 @@ class Merchants::DiscountsController < ApplicationController
     @discounts = Discount.all
     @upcoming_holidays = NagerService.new(Time.now.year).next_three_holidays
   end
+
+  def new
+    
+  end
 end
