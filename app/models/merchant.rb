@@ -13,7 +13,6 @@ class Merchant < ApplicationRecord
     where(enabled: true)
   end
 
-
   def self.all_disabled
     where(enabled: false)
   end
@@ -27,20 +26,6 @@ class Merchant < ApplicationRecord
             .limit(5)
   end
 
-  # top_five_customers(merchant_id)
-  # customers.find_by_sql(
-  #   "SELECT c.*, COUNT(t.id) AS count FROM customers c
-  #     INNER JOIN invoices i ON c.id=i.customer_id
-  #     INNER JOIN transactions t ON i.id=t.invoice_id
-  #     INNER JOIN invoice_items it ON i.id=it.invoice_id
-  #     INNER JOIN items ms ON ms.id=it.item_id
-  #     INNER JOIN merchants m ON m.id=ms.merchant_id
-  #     WHERE ms.merchant_id=#{merchant_id} AND t.result=1
-  #     GROUP BY c.id
-  #     ORDER BY count desc
-  #     LIMIT 5"
-  #                         )
-
   def top_five_items
     invoices.joins(:transactions)
             .select("items.name as item_name, sum(invoice_items.quantity * invoice_items.unit_price) as revenue")
@@ -50,16 +35,3 @@ class Merchant < ApplicationRecord
             .limit(5)
   end
 end
-
-# customers.find_by_sql(
-#   "SELECT c.*, COUNT(t.id) AS count FROM customers c
-#     INNER JOIN invoices i ON c.id=i.customer_id
-#     INNER JOIN transactions t ON i.id=t.invoice_id
-#     INNER JOIN invoice_items it ON i.id=it.invoice_id
-#     INNER JOIN items ms ON ms.id=it.item_id
-#     INNER JOIN merchants m ON m.id=ms.merchant_id
-#     WHERE ms.merchant_id=#{merchant_id} AND t.result=1
-#     GROUP BY c.id
-#     ORDER BY count desc
-#     LIMIT 5"
-#                         )

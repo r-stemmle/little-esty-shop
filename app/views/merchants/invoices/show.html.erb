@@ -18,6 +18,10 @@
   <p>Total Revenue: <%= number_to_currency(@invoice.total_revenue) %> </p>
 </div>
 
+<div class="total-revenue-with-discounts">
+  <p>Total Revenue after Discounts: <%= number_to_currency(@invoice.total_revenue_with_discounts) %></p>
+</div>
+
 <div class="customer">
   <h2>Customer:</h2>
   <ul>

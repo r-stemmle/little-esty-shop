@@ -18,4 +18,12 @@ class Invoice < ApplicationRecord
   def total_revenue
     invoice_items.sum("invoice_items.unit_price * invoice_items.quantity")
   end
+
+  def total_revenue_with_discounts
+    initial_revenue = invoice_items.sum("invoice_items.unit_price * invoice_items.quantity")
+    binding.pry
+    #calculate bulk discount
+      #(invoice_items.unit_price * discount.percent) * invoice_items.quantity
+    #subtract bulk discount
+  end
 end

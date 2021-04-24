@@ -27,6 +27,7 @@ RSpec.describe Invoice, type: :model do
       end
     end
   end
+
   describe 'instance methods' do
     describe '#total_revenue' do
       it 'calculates the total revenue of a invoice' do
@@ -35,6 +36,20 @@ RSpec.describe Invoice, type: :model do
         inv_item_2 = create(:random_invoice_item, unit_price: 100, quantity: 5, invoice: invoice)
 
         expect(invoice.total_revenue).to eq(600)
+      end
+    end
+
+    describe '#total_revenue_with_discounts' do
+      it 'calculates the total revenue of an invoice with bulk discounts' do
+        merchant = create(:random_merchant)
+        item_1 = create(:random_item, merchant_id: merchant.id)
+        item_2 = create(:random_item, merchant_id: merchant.id)
+        discount = merchant.discounts.create(percent: 0.10, quantity: 5)
+        invoice = create(:random_invoice)
+        inv_item_1 = create(:random_invoice_item, item: item_1, unit_price: 20, quantity: 5, invoice: invoice)
+        inv_item_2 = create(:random_invoice_item, item: item_2, unit_price: 100, quantity: 5, invoice: invoice)
+
+        expect(invoice.total_revenue_with_discounts).to eq(540)
       end
     end
   end

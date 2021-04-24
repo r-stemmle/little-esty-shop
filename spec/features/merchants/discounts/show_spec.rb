@@ -12,7 +12,6 @@ RSpec.describe "Discount Show Page" do
       expect(page).to have_content(discount.id)
       expect(page).to have_content(discount.percent)
       expect(page).to have_content(discount.quantity)
-      save_and_open_page
     end
   end
 end

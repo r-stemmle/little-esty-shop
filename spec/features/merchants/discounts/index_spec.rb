@@ -48,8 +48,6 @@ RSpec.describe "Buld Discounts Index Page" do
 
     it "I see a section with a header of 'Upcoming Holidays'" do
       expect(page).to have_content("Upcoming Holidays")
-      save_and_open_page
-      
     end
 
 
