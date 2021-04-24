@@ -5,6 +5,11 @@ class Merchants::DiscountsController < ApplicationController
     @upcoming_holidays = NagerService.new(Time.now.year).next_three_holidays
   end
 
+  def show
+    @merchant = Merchant.find(params[:merchant_id])
+    @discount = Discount.find(params[:id])
+  end
+
   def new
 
   end
