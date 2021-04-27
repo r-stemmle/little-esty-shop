@@ -3,9 +3,13 @@ require 'rails_helper'
 describe 'admin invoice show page' do
   context 'when you land on an invoice from the admin page' do
     before {
+      @merchant = create(:random_merchant)
+      @discount = create(:random_discount, merchant: @merchant, percent: 0.50, quantity: 5)
       @invoice = create(:random_invoice)
-      @inv_item_1 = create(:random_invoice_item, unit_price: 20, quantity: 5, invoice: @invoice)
-      @inv_item_2 = create(:random_invoice_item, unit_price: 100, quantity: 5, invoice: @invoice)
+      @item_1 = create(:random_item, merchant: @merchant)
+      @item_2 = create(:random_item, merchant: @merchant)
+      @inv_item_1 = create(:random_invoice_item, unit_price: 20, quantity: 5, invoice: @invoice, item: @item_1)
+      @inv_item_2 = create(:random_invoice_item, unit_price: 100, quantity: 5, invoice: @invoice, item: @item_2)
 
       visit "/admin/invoices/#{@invoice.id}"
     }
@@ -23,7 +27,7 @@ describe 'admin invoice show page' do
     end
 
     it 'shows total revenue' do
-      expect(page).to have_content("$600.00")
+      expect(page).to have_content("$300.00")
     end
 
     it 'shows the customer it belongs to' do
