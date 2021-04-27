@@ -1,0 +1,15 @@
+<h1>Edit Merchant Discount Page</h1>
+
+<h2><%= @merchant.name %></h2>
+
+<div class="discount-edit">
+  <%= form_with model: [@merchant, @discount] do |form| %>
+    <%= form.label :percent %>
+    <%= form.number_field :percent, in: 0.01..0.99, step: 0.01 %>
+
+    <%= form.label :quantity %>
+    <%= form.number_field :quantity, in: 1..100, step: 1 %>
+
+    <%= form.submit %>
+  <% end %>
+</div>

@@ -4,6 +4,8 @@ class Item < ApplicationRecord
   has_many :invoice_items, dependent: :destroy
   has_many :invoices, through: :invoice_items
 
+  has_many :discounts, through: :merchant
+
   validates_presence_of :name, :description
   validates :unit_price, presence: true, numericality: true
 
@@ -28,5 +30,4 @@ class Item < ApplicationRecord
             .created_at
             .strftime('%m/%d/%y')
   end
-
 end

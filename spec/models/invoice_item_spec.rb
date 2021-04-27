@@ -4,6 +4,7 @@ RSpec.describe InvoiceItem, type: :model do
   describe "relationships" do
     it {should belong_to :invoice}
     it {should belong_to :item}
+    it {should have_many :discounts}
   end
 
   describe "validations" do
@@ -92,14 +93,31 @@ RSpec.describe InvoiceItem, type: :model do
 
         expect(InvoiceItem.best_date_by_merchant_id(merchant_1.id)).to eq(invoice_item_2.created_at)
       end
+    end
+  end
 
-      it '.invoice_items_details by invoice' do
+  describe "instance methods" do
+    describe "#qualified_discount" do
+      it "should return a single qualified_discount or none" do
         merchant = create(:random_merchant)
-        item_1 = create(:random_item, merchant: merchant)
-        invoice_1 = create(:random_invoice)
-        invoice_item_1 = create(:random_invoice_item, status: 'pending', unit_price: 17600, quantity: 75, item: item_1, invoice: invoice_1)
-      
-        expect(InvoiceItem.invoice_items_details(invoice_1).first.status).to eq('pending')
+        discount_1 = Discount.create!(percent: 0.10, quantity: 10, merchant_id: merchant.id)
+        discount_2 = Discount.create!(percent: 0.50, quantity: 20, merchant_id: merchant.id)
+        item_1 = create(:random_item, merchant: merchant, unit_price: 100)
+        invoice = create(:random_invoice)
+        invoice_item = create(:random_invoice_item, quantity: 20, unit_price: 100, status: 'pending', item: item_1, invoice: invoice)
+
+        expect(invoice_item.qualified_discount).to eq(discount_2)
+      end
+
+      it "should return 'no discounts' if requirements aren't met" do
+        merchant = create(:random_merchant)
+        discount_1 = Discount.create!(percent: 0.10, quantity: 100, merchant_id: merchant.id)
+        discount_2 = Discount.create!(percent: 0.50, quantity: 200, merchant_id: merchant.id)
+        item_1 = create(:random_item, merchant: merchant, unit_price: 100)
+        invoice = create(:random_invoice)
+        invoice_item = create(:random_invoice_item, quantity: 20, unit_price: 100, status: 'pending', item: item_1, invoice: invoice)
+
+        expect(invoice_item.qualified_discount).to eq("No Discounts")
       end
     end
   end

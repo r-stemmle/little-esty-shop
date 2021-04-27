@@ -1,8 +1,13 @@
 class Merchants::DiscountsController < ApplicationController
   def index
     @merchant = Merchant.find(params[:merchant_id])
-    @discounts = Discount.all
+    @discounts = @merchant.discounts
     @upcoming_holidays = NagerService.new(Time.now.year).next_three_holidays
+  end
+
+  def show
+    @merchant = Merchant.find(params[:merchant_id])
+    @discount = Discount.find(params[:id])
   end
 
   def new
@@ -15,8 +20,25 @@ class Merchants::DiscountsController < ApplicationController
     discount.merchant_id = params[:merchant_id]
     if discount.save
       redirect_to merchant_discounts_path(merchant)
+      #method to update merchants invoice_items
     else
       redirect_to new_merchant_discount_path(merchant)
+      flash[:error] = "Error: #{error_message(discount.errors)}"
+    end
+  end
+
+  def edit
+    @merchant = Merchant.find(params[:merchant_id])
+    @discount = Discount.find(params[:id])
+  end
+
+  def update
+    merchant = Merchant.find(params[:merchant_id])
+    discount = Discount.find(params[:id])
+    if discount.update(discount_params)
+      redirect_to merchant_discount_path(merchant, discount)
+    else
+      redirect_to edit_merchant_discount_path(merchant, discount)
       flash[:error] = "Error: #{error_message(discount.errors)}"
     end
   end
@@ -27,7 +49,6 @@ class Merchants::DiscountsController < ApplicationController
     discount.destroy
     redirect_to merchant_discounts_path(merchant)
   end
-
 
   private
 

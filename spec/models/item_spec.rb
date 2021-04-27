@@ -4,6 +4,7 @@ RSpec.describe Item, type: :model do
   describe "relationships" do
     it {should have_many :invoices}
     it {should have_many :invoice_items}
+    it {should have_many :discounts}
     it {should belong_to :merchant}
   end
 
