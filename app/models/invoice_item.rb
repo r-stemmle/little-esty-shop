@@ -2,6 +2,8 @@ class InvoiceItem < ApplicationRecord
   belongs_to :item
   belongs_to :invoice
 
+  has_many :discounts, through: :item
+
   enum status: [:packaged, :pending, :shipped]
 
   validates_presence_of :quantity, :unit_price
@@ -25,7 +27,6 @@ class InvoiceItem < ApplicationRecord
     merchant.invoices.uniq
   end
 
-  # this currently returns all merchant_id's by highest revenue
   def self.highest_revenue_merchant_ids
     joins(:item, invoice: :transactions)
     .select("items.merchant_id, sum(invoice_items.unit_price * invoice_items.quantity) as revenue")
@@ -46,19 +47,12 @@ class InvoiceItem < ApplicationRecord
     .created_at
   end
 
-  def self.invoice_items_details(invoice)
-    find_by_sql("SELECT inv.id, i.name AS name,
-                ii.quantity AS quantity_ordered,
-                ii.unit_price AS price_sold,
-                ii.status AS status
-                FROM invoice_items ii
-                INNER JOIN items i
-                ON i.id=ii.item_id
-                INNER JOIN merchants m
-                ON m.id=i.merchant_id
-                INNER JOIN invoices inv
-                ON inv.id=ii.invoice_id
-                WHERE inv.id=#{invoice.id}"
-              )
+  def qualified_discount
+    discount = discounts.find_by_min_ordered(self.quantity)
+    if discount.nil?
+      "No Discounts"
+    else
+      discount
+    end
   end
 end
