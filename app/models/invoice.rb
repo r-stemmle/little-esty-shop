@@ -19,11 +19,15 @@ class Invoice < ApplicationRecord
     invoice_items.sum("invoice_items.unit_price * invoice_items.quantity")
   end
 
-  def total_revenue_with_discounts
-    initial_revenue = invoice_items.sum("invoice_items.unit_price * invoice_items.quantity")
-    binding.pry
-    #calculate bulk discount
-      #(invoice_items.unit_price * discount.percent) * invoice_items.quantity
-    #subtract bulk discount
+  def total_discounts
+    discount = 0
+    invoice_items.each do |invoice_item|
+      if invoice_item.qualified_discount == "No Discounts"
+        discount += 0
+      else
+        discount += (invoice_item.qualified_discount.percent * (invoice_item.unit_price * invoice_item.quantity)).to_f
+      end
+    end
+    discount
   end
 end
