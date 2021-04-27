@@ -19,7 +19,7 @@
 </div>
 
 <div class="total-revenue-with-discounts">
-  <p>Total Revenue after Discounts: <%= number_to_currency(@invoice.total_revenue_with_discounts) %></p>
+  <p>Total Revenue after Discounts: <%= number_to_currency(@invoice.total_revenue - @invoice.total_discounts) %></p>
 </div>
 
 <div class="customer">
@@ -32,8 +32,15 @@
 <div class="show-items">
   <h2>Items on this Invoice:</h2>
     <ul>
-      <% @invoice_items.each do |item| %>
-      <li><%= item.name %>---<%= item.quantity_ordered %>---<%= number_to_currency(item.price_sold) %>---<%= item.status %></li>
+      <% @invoice.invoice_items.each do |invoice_item| %>
+      <li id="item-<%=invoice_item.item.id%>">
+        <%= invoice_item.item.name %>---<%= invoice_item.quantity %>---<%= number_to_currency(invoice_item.item.unit_price) %>---<%= invoice_item.status %>
+        <% if invoice_item.qualified_discount.class == String %>
+          <%= invoice_item.qualified_discount %>
+        <% else %>
+          <%= link_to invoice_item.qualified_discount.id, merchant_discount_path(@merchant, invoice_item.qualified_discount) %>
+        <% end %>
+      </li>
       <% end %>
     </ul>
 
