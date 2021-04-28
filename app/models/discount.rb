@@ -1,4 +1,6 @@
 class Discount < ApplicationRecord
+  validates :percent, :quantity, presence: true
+
   belongs_to :merchant
   has_many :items, through: :merchant
 

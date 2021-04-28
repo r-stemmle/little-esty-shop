@@ -22,6 +22,19 @@ RSpec.describe "Merchant Bulk Discount Create" do
       expect(page).to have_content('70%')
       expect(page).to have_content('70')
     end
+
+    it "Provides appropriate error when field is left blank" do
+      merchant = create(:random_merchant)
+
+      visit merchant_discounts_path(merchant)
+      click_on "Create Discount"
+      expect(current_path).to eq(new_merchant_discount_path(merchant))
+      fill_in "Percent", with: 0.7
+      fill_in "Quantity", with: ''
+      click_on "Create Discount"
+      expect(current_path).to eq(new_merchant_discount_path(merchant))
+      expect(page).to have_content("Error: Quantity can't be blank")
+    end
   end
 
 

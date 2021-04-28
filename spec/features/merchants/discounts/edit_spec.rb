@@ -36,5 +36,18 @@ RSpec.describe "Bulk Discount Edit" do
         expect(page).to have_content(100)
       end
     end
+
+    describe "When I change discount info and click update with blank field" do
+      it "I am redirected to the sad path" do
+        merchant = create(:random_merchant)
+        discount = create(:random_discount)
+        visit edit_merchant_discount_path(merchant, discount)
+        fill_in "Percent", with: ''
+        fill_in "Quantity", with: 100
+        click_on "Update Discount"
+        expect(current_path).to eq(edit_merchant_discount_path(merchant, discount))
+        expect(page).to have_content("Error: Percent can't be blank")
+      end
+    end
   end
 end

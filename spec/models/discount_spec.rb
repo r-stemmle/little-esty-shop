@@ -4,6 +4,11 @@ RSpec.describe Discount, type: :model do
   it {should belong_to :merchant}
   it {should have_many :items}
 
+  describe "validations" do
+    it {should validate_presence_of :percent}
+    it {should validate_presence_of :quantity}
+  end
+
   describe "class methods" do
     describe ".find_by_min_ordered" do
       it "returns one discount by quantity from invoice_item" do
