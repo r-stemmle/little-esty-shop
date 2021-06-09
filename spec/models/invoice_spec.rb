@@ -47,11 +47,12 @@ RSpec.describe Invoice, type: :model do
         item_3 = create(:random_item, merchant_id: merchant.id)
         discount_1 = create(:random_discount, percent: 0.10, quantity: 5, merchant: merchant)
         discount_2 = create(:random_discount, percent: 0.20, quantity: 10, merchant: merchant)
+        discount_3 = create(:random_discount, percent: 0.25, quantity: 9, merchant: merchant)
         invoice = create(:random_invoice)
         inv_item_1 = create(:random_invoice_item, item: item_1, unit_price: 100, quantity: 1, invoice: invoice)
         inv_item_2 = create(:random_invoice_item, item: item_2, unit_price: 100, quantity: 5, invoice: invoice)
         inv_item_3 = create(:random_invoice_item, item: item_2, unit_price: 100, quantity: 10, invoice: invoice)
-        expect(invoice.total_discounts).to eq(250)
+        expect(invoice.total_discounts).to eq(300)
       end
     end
   end
