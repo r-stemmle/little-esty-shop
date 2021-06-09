@@ -20,14 +20,11 @@ class Invoice < ApplicationRecord
   end
 
   def total_discounts
-    discount = 0
-    invoice_items.each do |invoice_item|
-      if invoice_item.qualified_discount == "No Discounts"
-        discount += 0
-      else
-        discount += (invoice_item.qualified_discount.percent * (invoice_item.unit_price * invoice_item.quantity)).to_f
-      end
-    end
-    discount
+    invoice_items.joins(:discounts)
+                .select("invoice_items.id, max(invoice_items.unit_price * invoice_items.quantity * (discounts.percent / 100.0)) as total_discount")
+                .where("invoice_items.quantity >= discounts.quantity")
+                .group("invoice_items.id")
+                .order(total_discount: :desc)
+                .sum(&:total_discount)
   end
 end

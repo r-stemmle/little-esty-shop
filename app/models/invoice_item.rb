@@ -49,10 +49,5 @@ class InvoiceItem < ApplicationRecord
 
   def qualified_discount
     discount = discounts.find_by_min_ordered(self.quantity)
-    if discount.nil?
-      "No Discounts"
-    else
-      discount
-    end
   end
 end
